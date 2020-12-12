@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>arm_control</name>
+  <version>0.0.0</version>
+  <description>The arm_control package</description>
+  <maintainer email="jacques@todo.todo">jacques</maintainer>
+  <license>TODO</license>
+  <buildtool_depend>catkin</buildtool_depend>
+  <build_depend>roscpp</build_depend>
+  <build_depend>message_generation</build_depend>
+	
+  <depend>std_msgs</depend>
+  <depend>sensor_msgs</depend>
+  <depend>message_runtime</depend>
+  <depend>pluginlib</depend>
+  <depend>kdl_parser</depend>
+  <depend>orocos_kdl</depend>
+  <depend>realtime_tools</depend>
+  <depend>gazebo-ros-control</depend>
+  <depend>controller_interface</depend>
+  <depend>joint_trajectory_controller</depend>
+
+  <export>
+    <controller_interface plugin="${prefix}/arm_control_plugins.xml"/>
+  </export>
+</package>

@@ -1,0 +1,29 @@
+# Publish all joint states
+joint_state_controller:
+  type: "joint_state_controller/JointStateController"
+  publish_rate: 50
+
+# Control all joints
+arm_controller:
+  type: "arm_control/JointTrajectoryController"
+  joints:
+    - toe_foot_joint
+    - foot_leg1_joint
+    - leg1_leg2_joint
+    - leg2_leg3_joint
+    - leg3_leg4_joint
+    - leg4_leg5_joint
+    - leg5_arm_joint
+    - arm_hand_joint
+    - hand_finger_joint
+
+  gains:
+    toe_foot_joint: {p: 100,  d: 10}
+    foot_leg1_joint: {p: 100,  d: 10}
+    leg1_leg2_joint: {p: 100,  d: 10}
+    leg2_leg3_joint: {p: 100,  d: 10}
+    leg3_leg4_joint: {p: 100,  d: 10}
+    leg4_leg5_joint: {p: 100,  d: 10}
+    leg5_arm_joint: {p: 100,  d: 10}
+    arm_hand_joint: {p: 100,  d: 1}
+    hand_finger_joint: {p: 100,  d: 10}

@@ -1,0 +1,12 @@
+controller_list:
+  - name: fake_arm_controller
+    joints:
+    - toe_foot_joint
+    - foot_leg1_joint
+    - leg1_leg2_joint
+    - leg2_leg3_joint
+    - leg3_leg4_joint
+    - leg4_leg5_joint
+    - leg5_arm_joint
+    - arm_hand_joint
+    - hand_finger_joint
