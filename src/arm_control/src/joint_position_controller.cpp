@@ -159,13 +159,13 @@ void ForwardKinematics2nd(vector<double> angle, Eigen::Vector3d &PE, Eigen::Matr
   Eigen::Matrix<Eigen::Vector3d, 2, 6> result;
 
   L1 << 0, 0, 100;
-  B2 << 0, 100, 0;
+  B2 << 0, 30, 0;
   L2 << 0, 0, 100;
-  B3 << 0, -100, 0;
-  L3 << 0, 0, 100;
-  L4 << 0, 0, 200;
-  L5 << 0, 0, 100;
-  L6 << 0, 0, 100;
+  B3 << 0, -20, 0;
+  L3 << 0, 0, 80;
+  L4 << 0, 0, 50;
+  L5 << 0, 0, 60;
+  L6 << 0, 0, 50;
 
   ph1 << 0, 0, 1;
   ph2 << 0, 1, 0;
@@ -220,7 +220,7 @@ void ForwardKinematics2nd(vector<double> angle, Eigen::Vector3d &PE, Eigen::Matr
   r.push_back(t_ph5.transpose());
   r.push_back(t_ph6.transpose());
 
-  for (int i = 0; i < p.size(); i++)
+  for (int i = 0; i < 3; i++)
   {
     JE(i, 0) = p[i](0);
     JE(i, 1) = p[i](1);
@@ -228,6 +228,16 @@ void ForwardKinematics2nd(vector<double> angle, Eigen::Vector3d &PE, Eigen::Matr
     JE(i, 3) = r[i](0);
     JE(i, 4) = r[i](1);
     JE(i, 5) = r[i](2);
+  }
+
+  for (int i = 3; i < p.size(); i++)
+  {
+    JE(i, 0) = 0;
+    JE(i, 1) = 0;
+    JE(i, 2) = 0;
+    JE(i, 3) = 0;
+    JE(i, 4) = 0;
+    JE(i, 5) = 0;
   }
 
   JE.transposeInPlace();
@@ -242,13 +252,13 @@ void ForwardKinematics(vector<double> angle, Eigen::Vector3d &PE, Eigen::Matrix3
   Eigen::Matrix<Eigen::Vector3d, 2, 6> result;
 
   L1 << 0, 0, 100;
-  B2 << 0, 100, 0;
+  B2 << 0, 30, 0;
   L2 << 0, 0, 100;
-  B3 << 0, -100, 0;
-  L3 << 0, 0, 100;
-  L4 << 0, 0, 200;
-  L5 << 0, 0, 100;
-  L6 << 0, 0, 100;
+  B3 << 0, -20, 0;
+  L3 << 0, 0, 80;
+  L4 << 0, 0, 50;
+  L5 << 0, 0, 60;
+  L6 << 0, 0, 50;
 
   ph1 << 0, 0, 1;
   ph2 << 0, 1, 0;
@@ -316,19 +326,19 @@ void ForwardKinematics(vector<double> angle, Eigen::Vector3d &PE, Eigen::Matrix3
 
 void Initialize()
 {
-  aTarget.push_back(deg2rad(0));
-  aTarget.push_back(deg2rad(0));
+  aTarget.push_back(deg2rad(10)); //yaw
+  aTarget.push_back(deg2rad(10));
   aTarget.push_back(deg2rad(-5));
-  aTarget.push_back(deg2rad(0));
+  aTarget.push_back(deg2rad(30));
   aTarget.push_back(deg2rad(60));
-  aTarget.push_back(deg2rad(0));
+  aTarget.push_back(deg2rad(0)); //yaw
 
+  aTarget2.push_back(deg2rad(10)); //yaw
+  aTarget2.push_back(deg2rad(-20));
+  aTarget2.push_back(deg2rad(-15));
+  aTarget2.push_back(deg2rad(30));
   aTarget2.push_back(deg2rad(0));
-  aTarget2.push_back(deg2rad(0));
-  aTarget2.push_back(deg2rad(-7));
-  aTarget2.push_back(deg2rad(0));
-  aTarget2.push_back(deg2rad(0));
-  aTarget2.push_back(deg2rad(0));
+  aTarget2.push_back(deg2rad(0)); //yaw
 
   aInit.push_back(deg2rad(0));
   aInit.push_back(deg2rad(0));
@@ -337,10 +347,10 @@ void Initialize()
   aInit.push_back(deg2rad(0));
   aInit.push_back(deg2rad(0));
 
-  K << 1, 1, 1, 100000, 100000, 100000;
+  K << 1, 1, 1, 100, 100, 100;
   Ke = K.asDiagonal();
 
-  K2 << 1, 1, 1, 100000, 100000, 100000;
+  K2 << 1, 1, 1, 100, 100, 100;
   Ke2 = K2.asDiagonal();
 
   dlt = T = 1; //theta 0
@@ -579,25 +589,23 @@ moveit_msgs::DisplayRobotState DisplayRobot(string name, double pos, int target)
   }
 
   msg.state.joint_state = JointController(name, pos, 1, 0);
-  msg.highlight_links.push_back(Coloring("toe", col));
-  msg.highlight_links.push_back(Coloring("foot", col));
-  msg.highlight_links.push_back(Coloring("leg1", col));
-  msg.highlight_links.push_back(Coloring("leg2", col));
-  msg.highlight_links.push_back(Coloring("leg3", col));
-  msg.highlight_links.push_back(Coloring("leg4", col));
+  msg.highlight_links.push_back(Coloring("l0", col));
+  msg.highlight_links.push_back(Coloring("l1", col));
+  msg.highlight_links.push_back(Coloring("b2", col));
+  msg.highlight_links.push_back(Coloring("l2", col));
+  msg.highlight_links.push_back(Coloring("b3", col));
+  msg.highlight_links.push_back(Coloring("l3", col));
   if (target == 1)
   {
-    msg.highlight_links.push_back(Coloring("leg5", col));
-    msg.highlight_links.push_back(Coloring("arm", col));
-    msg.highlight_links.push_back(Coloring("hand", col));
-    msg.highlight_links.push_back(Coloring("finger", col));
+    msg.highlight_links.push_back(Coloring("l4", col));
+    msg.highlight_links.push_back(Coloring("l5", col));
+    msg.highlight_links.push_back(Coloring("l6", col));
   }
   else
   {
-    msg.highlight_links.push_back(Coloring("leg5", colAlpha));
-    msg.highlight_links.push_back(Coloring("arm", colAlpha));
-    msg.highlight_links.push_back(Coloring("hand", colAlpha));
-    msg.highlight_links.push_back(Coloring("finger", colAlpha));
+    msg.highlight_links.push_back(Coloring("l4", colAlpha));
+    msg.highlight_links.push_back(Coloring("l5", colAlpha));
+    msg.highlight_links.push_back(Coloring("l6", colAlpha));
   }
   return msg;
 }
@@ -624,32 +632,34 @@ int main(int argc, char **argv)
   int count = 0;
   while (ros::ok())
   {
-    //Message Publish
+    //Message Publish ---
     {
-      first_target_controller.publish(DisplayRobot("toe_foot_joint", aTarget[0], 1));
-      first_target_controller.publish(DisplayRobot("foot_leg1_joint", aTarget[1], 1));
-      first_target_controller.publish(DisplayRobot("leg2_leg3_joint", aTarget[2], 1));
-      first_target_controller.publish(DisplayRobot("leg4_leg5_joint", aTarget[3], 1));
-      first_target_controller.publish(DisplayRobot("arm_hand_joint", aTarget[4], 1));
-      first_target_controller.publish(DisplayRobot("hand_finger_joint", aTarget[5], 1));
+      first_target_controller.publish(DisplayRobot("l0_l1_joint", aTarget[0], 1));
+      first_target_controller.publish(DisplayRobot("l1_b2_joint", aTarget[1], 1));
+      first_target_controller.publish(DisplayRobot("l2_b3_joint", aTarget[2], 1));
+      first_target_controller.publish(DisplayRobot("l3_l4_joint", aTarget[3], 1));
+      first_target_controller.publish(DisplayRobot("l4_l5_joint", aTarget[4], 1));
+      first_target_controller.publish(DisplayRobot("l5_l6_joint", aTarget[5], 1));
 
-      second_target_controller.publish(DisplayRobot("toe_foot_joint", aTarget2[0], 2));
-      second_target_controller.publish(DisplayRobot("foot_leg1_joint", aTarget2[1], 2));
-      second_target_controller.publish(DisplayRobot("leg2_leg3_joint", aTarget2[2], 2));
-      second_target_controller.publish(DisplayRobot("leg4_leg5_joint", aTarget2[3], 2));
-      second_target_controller.publish(DisplayRobot("arm_hand_joint", aTarget2[4], 2));
-      second_target_controller.publish(DisplayRobot("hand_finger_joint", aTarget2[5], 2));
+      second_target_controller.publish(DisplayRobot("l0_l1_joint", aTarget2[0], 2));
+      second_target_controller.publish(DisplayRobot("l1_b2_joint", aTarget2[1], 2));
+      second_target_controller.publish(DisplayRobot("l2_b3_joint", aTarget2[2], 2));
+      second_target_controller.publish(DisplayRobot("l3_l4_joint", aTarget2[3], 2));
+      second_target_controller.publish(DisplayRobot("l4_l5_joint", aTarget2[4], 2));
+      second_target_controller.publish(DisplayRobot("l5_l6_joint", aTarget2[5], 2));
 
-      fake_controller.publish(JointController("toe_foot_joint", aInit[0], 1, 0));
-      fake_controller.publish(JointController("foot_leg1_joint", aInit[1], 1, 0));
-      fake_controller.publish(JointController("leg2_leg3_joint", aInit[2], 1, 0));
-      fake_controller.publish(JointController("leg4_leg5_joint", aInit[3], 1, 0));
-      fake_controller.publish(JointController("arm_hand_joint", aInit[4], 1, 0));
-      fake_controller.publish(JointController("hand_finger_joint", aInit[5], 1, 0));
+      fake_controller.publish(JointController("l0_l1_joint", aInit[0], 1, 0));
+      fake_controller.publish(JointController("l1_b2_joint", aInit[1], 1, 0));
+      fake_controller.publish(JointController("l2_b3_joint", aInit[2], 1, 0));
+      fake_controller.publish(JointController("l3_l4_joint", aInit[3], 1, 0));
+      fake_controller.publish(JointController("l4_l5_joint", aInit[4], 1, 0));
+      fake_controller.publish(JointController("l5_l6_joint", aInit[5], 1, 0));
     }
+    
+
     cout << "Iteration " << count << endl;
-    //cout << "result: " << rad2deg(aInit[0]) << ", " << rad2deg(aInit[1]) << ", " << rad2deg(aInit[2]) << ", " << rad2deg(aInit[3]) << ", "
-    //     << rad2deg(aInit[4]) << ", " << rad2deg(aInit[5]) << endl;
+    cout << "result: " << rad2deg(aInit[0]) << ", " << rad2deg(aInit[1]) << ", " << rad2deg(aInit[2]) << ", " << rad2deg(aInit[3]) << ", "
+         << rad2deg(aInit[4]) << ", " << rad2deg(aInit[5]) << endl;
     //InverseKinematics(vN, V);
     InverseKinematics2(vN, vN2, V, V2, Te);
     ros::spinOnce();

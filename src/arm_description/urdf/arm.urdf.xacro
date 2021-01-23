@@ -12,12 +12,15 @@
   <xacro:property name="link_side" value="0.02"/>
   <xacro:property name="joint_radius" value="0.018"/>
   <xacro:property name="joint_length" value="0.025"/>
-  <xacro:property name="toe_length" value="0.10"/>
-  <xacro:property name="foot_length" value="0.10"/>
-  <xacro:property name="leg_length" value="0.10"/>
-  <xacro:property name="arm_length" value="0.10"/>
-  <xacro:property name="hand_length" value="0.10"/>
-  <xacro:property name="finger_length" value="0.10"/>
+  <xacro:property name="l0_length" value="0.001"/>
+  <xacro:property name="l1_length" value="0.10"/>
+  <xacro:property name="b2_length" value="0.03"/>
+  <xacro:property name="l2_length" value="0.10"/>
+  <xacro:property name="b3_length" value="0.02"/>
+  <xacro:property name="l3_length" value="0.08"/>
+  <xacro:property name="l4_length" value="0.05"/>
+  <xacro:property name="l5_length" value="0.06"/>
+  <xacro:property name="l6_length" value="0.05"/>
 
   <!-- Materials -->
   <material name="orange">
@@ -80,10 +83,10 @@
   </xacro:macro>
 
   <!-- Generates child joint of parent -->
-  <xacro:macro name="arm_joint" params="child parent dist:=0 axis">
+  <xacro:macro name="arm_joint" params="child parent dist:=0 axis rpy">
 
     <joint name="${parent}_${child}_joint" type="revolute">
-      <origin xyz="0 0 ${dist}" rpy="0 0 0"/>
+      <origin xyz="0 0 ${dist}" rpy="${rpy}"/>
       <parent link="${parent}"/>
       <child link="${child}"/>
       <axis xyz="${axis}"/>
@@ -136,32 +139,109 @@
   <link name="world"/>
 
   <!-- Arm fixed to world frame  -->
-  <joint name="world_foot_joint" type="fixed">
-    <origin xyz="0 0 0" rpy="0 0 1.5708"/>
+  <joint name="world_l0_joint" type="fixed">
+    <origin xyz="0 0 0" rpy="0 0 0"/>
     <parent link="world"/>
-    <child link="toe"/>
+    <child link="l0"/>
   </joint>
 
   <!-- Joints Chain -->
-  <xacro:arm_joint parent="toe" child="foot" axis="0 0 1" dist="${toe_length}"/>
-  <xacro:arm_joint parent="foot" child="leg1" axis="1 0 0" dist="${foot_length}"/>
-  <xacro:arm_joint parent="leg1" child="leg2" axis="0 0 1" dist="${leg_length}"/>
-  <xacro:arm_joint parent="leg2" child="leg3" axis="1 0 0" dist="${leg_length}"/>
-  <xacro:arm_joint parent="leg3" child="leg4" axis="0 0 1" dist="${leg_length}"/>
-  <xacro:arm_joint parent="leg4" child="leg5" axis="1 0 0" dist="${leg_length}"/>
-  <xacro:arm_joint parent="leg5" child="arm" axis="0 0 1" dist="${leg_length}"/>
-  <xacro:arm_joint parent="arm" child="hand" axis="1 0 0" dist="${arm_length}"/>
-  <xacro:arm_joint parent="hand" child="finger" axis="0 0 1" dist="${hand_length}"/>
+  <xacro:arm_joint parent="l0" child="l1" axis="0 0 1" rpy="0 0 0" dist="${l0_length}"/>
+  <!-- <xacro:arm_joint parent="l1" child="b2" axis="1 0 0" rpy="${PI/2} 0 ${PI/2}" dist="${l1_length}"/> -->
+
+  <joint name="l1_b2_joint" type="revolute">
+      <origin xyz="0 0 ${l1_length}" rpy="${PI/2} 0 ${PI/2}"/>
+      <parent link="l1"/>
+      <child link="b2"/>
+      <axis xyz="1 0 0"/>
+      <limit effort="40.0"
+             velocity="1.0"
+             lower="${-PI}"
+             upper="${PI}"/>
+  </joint>
+
+  <link name="l1">
+    <xacro:prism_vci length="${l1_length}" side="${link_side}">
+      <origin xyz="0 0 ${l1_length/2}" rpy="0 0 0"/>
+    </xacro:prism_vci>
+    <xacro:cylinder_vc radius="${joint_radius}" length="${joint_length}">
+       <origin xyz="0 0 ${l1_length}" rpy="${PI/2} 0 0"/>
+    </xacro:cylinder_vc>
+  </link>
+  
+  <joint name="b2_l2_joint" type="fixed">
+      <origin xyz="${b2_length} 0 0" rpy="0 0 0"/>
+      <parent link="b2"/>
+      <child link="l2"/>
+      <axis xyz="0 0 1"/>
+      <limit effort="40.0"
+             velocity="1.0"
+             lower="${-PI}"
+             upper="${PI}"/>
+  </joint>
+
+  <link name="b2">
+    <xacro:prism_vci length="${b2_length}" side="${link_side}">
+      <origin xyz="${b2_length/2} 0 0" rpy="0 ${PI/2} 0"/>
+    </xacro:prism_vci>
+    <xacro:cylinder_vc radius="${joint_radius}" length="${joint_length}">
+       <origin xyz="${b2_length} 0 0" rpy="0 ${PI/2} 0"/>
+    </xacro:cylinder_vc>
+  </link>
+
+  <joint name="l2_b3_joint" type="revolute">
+      <origin xyz="${b2_length} ${l2_length} 0" rpy="0 0 0"/>
+      <parent link="l2"/>
+      <child link="b3"/>
+      <axis xyz="1 0 0"/>
+      <limit effort="40.0"
+             velocity="1.0"
+             lower="${-PI}"
+             upper="${PI}"/>
+  </joint>
+
+  <link name="l2">
+    <xacro:prism_vci length="${l2_length}" side="${link_side}">
+      <origin xyz="0 ${l2_length/2} 0" rpy="${PI/2} 0 0"/>
+    </xacro:prism_vci>
+    <xacro:cylinder_vc radius="${joint_radius}" length="${joint_length}">
+       <origin xyz="0 ${l2_length} 0" rpy="0 ${PI/2} 0"/>
+    </xacro:cylinder_vc>
+  </link>
+
+  <joint name="b3_l3_joint" type="fixed">
+      <origin xyz="-${b3_length*2} 0 0" rpy="-${PI/2} 0 0"/>
+      <parent link="b3"/>
+      <child link="l3"/>
+      <axis xyz="1 0 0"/>
+      <limit effort="40.0"
+             velocity="1.0"
+             lower="${-PI}"
+             upper="${PI}"/>
+  </joint>
+
+  <link name="b3">
+    <xacro:prism_vci length="${b3_length}" side="${link_side}">
+      <origin xyz="-${b3_length*1.5} 0 0" rpy="0 ${PI/2} 0"/>
+    </xacro:prism_vci>
+    <xacro:cylinder_vc radius="${joint_radius}" length="${joint_length}">
+       <origin xyz="-${b3_length*2} 0 0" rpy="0 ${PI/2} 0"/>
+    </xacro:cylinder_vc>
+  </link>
+
+  <xacro:arm_joint parent="l3" child="l4" axis="0 0 1" rpy="0 0 0" dist="${l3_length}"/>
+  <xacro:arm_joint parent="l4" child="l5" axis="1 0 0" rpy="0 0 0" dist="${l4_length}"/>
+  <xacro:arm_joint parent="l5" child="l6" axis="0 0 1" rpy="0 0 0" dist="${l5_length}"/>
 
   <!-- End effector -->
-  <link name="finger">
-    <xacro:prism_vci length="${finger_length}" side="${link_side}">
-      <origin xyz="0 0 ${finger_length/2}" rpy="0 0 0"/>
+  <link name="l6">
+    <xacro:prism_vci length="${l6_length}" side="${link_side}">
+      <origin xyz="0 0 ${l6_length/2}" rpy="0 0 0"/>
     </xacro:prism_vci>
   </link>
 
-  <gazebo reference="finger">
-    <material>Gazebo/Red</material>
+  <gazebo reference="l6">
+    <material>Gazebo/Green</material>
   </gazebo>
 
 </robot>

@@ -145,5 +145,5 @@ arm:
     - LazyPRMstarkConfigDefault
     - SPARSkConfigDefault
     - SPARStwokConfigDefault
-  projection_evaluator: joints(toe_foot_joint,foot_leg1_joint)
+  projection_evaluator: joints(l0_l1_joint,l1_b2_joint)
   longest_valid_segment_fraction: 0.005

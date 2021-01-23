@@ -1,14 +1,13 @@
 hardware_interface:
   joints:
-    - toe_foot_joint
-    - foot_leg1_joint
-    - leg1_leg2_joint
-    - leg2_leg3_joint
-    - leg3_leg4_joint
-    - leg4_leg5_joint
-    - leg5_arm_joint
-    - arm_hand_joint
-    - hand_finger_joint
+    - l0_l1_joint
+    - l1_b2_joint
+    - b2_l2_joint
+    - l2_b3_joint
+    - b3_l3_joint
+    - l3_l4_joint
+    - l4_l5_joint
+    - l5_l6_joint
   sim_control_mode: 1  # 0: position, 1: velocity
 # Publish all joint states
 # Creates the /joint_states topic necessary in ROS
@@ -21,12 +20,11 @@ controller_list:
    type: FollowJointTrajectory
    default: true
    joints:
-    - toe_foot_joint
-    - foot_leg1_joint
-    - leg1_leg2_joint
-    - leg2_leg3_joint
-    - leg3_leg4_joint
-    - leg4_leg5_joint
-    - leg5_arm_joint
-    - arm_hand_joint
-    - hand_finger_joint
+    - l0_l1_joint
+    - l1_b2_joint
+    - b2_l2_joint
+    - l2_b3_joint
+    - b3_l3_joint
+    - l3_l4_joint
+    - l4_l5_joint
+    - l5_l6_joint

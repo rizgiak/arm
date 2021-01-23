@@ -7,23 +7,21 @@ joint_state_controller:
 arm_controller:
   type: "arm_control/JointTrajectoryController"
   joints:
-    - toe_foot_joint
-    - foot_leg1_joint
-    - leg1_leg2_joint
-    - leg2_leg3_joint
-    - leg3_leg4_joint
-    - leg4_leg5_joint
-    - leg5_arm_joint
-    - arm_hand_joint
-    - hand_finger_joint
+    - l0_l1_joint
+    - l1_b2_joint
+    - b2_l2_joint
+    - l2_b3_joint
+    - b3_l3_joint
+    - l3_l4_joint
+    - l4_l5_joint
+    - l5_l6_joint
 
   gains:
-    toe_foot_joint: {p: 100,  d: 10}
-    foot_leg1_joint: {p: 100,  d: 10}
-    leg1_leg2_joint: {p: 100,  d: 10}
-    leg2_leg3_joint: {p: 100,  d: 10}
-    leg3_leg4_joint: {p: 100,  d: 10}
-    leg4_leg5_joint: {p: 100,  d: 10}
-    leg5_arm_joint: {p: 100,  d: 10}
-    arm_hand_joint: {p: 100,  d: 1}
-    hand_finger_joint: {p: 100,  d: 10}
+    l0_l1_joint: {p: 100,  d: 10}
+    l1_b2_joint: {p: 100,  d: 10}
+    b2_l2_joint: {p: 100,  d: 10}
+    l2_b3_joint: {p: 100,  d: 10}
+    b3_l3_joint: {p: 100,  d: 10}
+    l3_l4_joint: {p: 100,  d: 10}
+    l4_l5_joint: {p: 100,  d: 10}
+    l5_l6_joint: {p: 100,  d: 10}
