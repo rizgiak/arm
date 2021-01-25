@@ -454,7 +454,7 @@ void InverseKinematics2(double &vN, double &vN2, double &V, double &V2, double &
   pError = pTarget2 - pInit2;                        //sensei
   rError = rot2angle(rTarget2 * rInit2.transpose()); //sensei
   e2 << pError(0), pError(1), pError(2), rError(0), rError(1), rError(2);
-  tau2 = jEi2.transpose() * Ke2 * e2; //sensei
+  tau2 = jEi2.transpose() * Ke2 * Te * e2; //sensei, Te was added 24/01/2021
 
   tau = tau1 + tau2;
   // here
@@ -465,7 +465,7 @@ void InverseKinematics2(double &vN, double &vN2, double &V, double &V2, double &
   //      << tau << endl;
 
   Eigen::Matrix<double, 6, 6> A, D;
-  A = (jEi.transpose() * Ke * jEi) + (jEi2.transpose() * Ke2 * jEi2); //sensei
+  A = (jEi.transpose() * Ke * jEi) + (jEi2.transpose() * Ke2 * Te * jEi2); //sensei, Te was added 24/01/2021
   V = 0.5 * e1.transpose() * Ke * e1;
   V2 = 0.5 * e2.transpose() * Ke2 * Te * e2;
   // cout << "A:" << endl
@@ -522,15 +522,17 @@ void InverseKinematics2(double &vN, double &vN2, double &V, double &V2, double &
   vN = 0.5 * e1.transpose() * Ke * e1;
   vN2 = 0.5 * e2.transpose() * Ke2 * Te * e2;
 
-  if ((vN + vN2) >= 0.99 * (V + V2))
+  if ((vN + vN2) >= 0.999999 * (V + V2))//0.99 was changed to 0.999999 by N.Takesue 23/01/2021
   {
     Te = Te - 0.25 * 1; //Tk+1 = Tk -  === 0.75
   }
 
+/*//Changed by N.Takesue 23/01/2021
   if (Te < 0)
   {
     Te = 0;
   }
+*/
 
   cout << "vN:" << vN << " V:" << V << " vN2:" << vN2 << " V2:" << V2 << " Te:" << Te << endl;
 }
@@ -621,7 +623,7 @@ int main(int argc, char **argv)
   ros::Publisher first_target_controller = n.advertise<moveit_msgs::DisplayRobotState>("robot_state_first_target", 1000);
   ros::Publisher second_target_controller = n.advertise<moveit_msgs::DisplayRobotState>("robot_state_second_target", 1000);
 
-  ros::Rate loop_rate(0.5);
+  ros::Rate loop_rate(2);
 
   moveit_msgs::DisplayRobotState init;
 
@@ -665,7 +667,8 @@ int main(int argc, char **argv)
     ros::spinOnce();
     loop_rate.sleep();
     count++;
-    if (vN + vN2 > 0.999 * (V + V2) && vN2 == 0)
+    if (Te < 0)//Changed by N.Takesue 23/01/2021
+//    if (vN + vN2 > 0.999 * (V + V2) && vN2 == 0)
       break;
 
     //V2 = vN2;
