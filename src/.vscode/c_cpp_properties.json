@@ -1,0 +1,17 @@
+{
+  "configurations": [
+    {
+      "browse": {
+        "databaseFilename": "",
+        "limitSymbolsToIncludedHeaders": true
+      },
+      "includePath": [
+        "/home/eros/arm/devel/include",
+        "/opt/ros/kinetic/include",
+        "/home/eros/arm/src/arm_control/include",
+        "/usr/include"
+      ],
+      "name": "Linux"
+    }
+  ]
+}
