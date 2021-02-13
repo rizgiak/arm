@@ -193,3 +193,14 @@ include_directories(
 
 ## Add folders to be run by python nosetests
 # catkin_add_nosetests(test)
+
+## Copy files
+install(DIRECTORY launch/
+  DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/launch/
+  FILES_MATCHING PATTERN "*.launch"
+)
+install(
+  DIRECTORY urdf/
+  DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/urdf/
+  FILES_MATCHING PATTERN "*"
+)

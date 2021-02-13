@@ -11,15 +11,19 @@ Install dependencies:
 ```
 rosdep install --from-paths src --ignore-src -r -y
 ```
+Configure catkin workspace:
+```
+catkin config --install
+```
 Build catkin workspace:
 ```
-catkin_make
+catkin build
 ```
 Init the environment:
 ```
-source devel/setup.sh
+source install/setup.sh
 ```
-Launch the gazebo simulation:
+Launch the gazebo simulation (optional):
 ```
 roslaunch arm_gazebo empty_world.launch
 ```
@@ -31,7 +35,7 @@ Launch the MoveIt! move group:
 ```
 roslaunch arm_control moveit.launch
 ```
-Instead of using MoveIt!, it also can be done from joint controller as this main research
+Instead of using MoveIt!, it also can be done from joint controller as this main research:
 ```
 rosrun arm_control joint_position_controller
 ```

@@ -1,0 +1,463 @@
+<robot name="manipulator">
+
+  <link name="base_link"/>
+
+  <material name="link_material0">
+    <color rgba="1 0 0 0.5"/>
+  </material>
+
+  <joint name="base0_joint" type="fixed">
+    <parent link="base_link"/>
+    <origin xyz="0 0 0.04" rpy="0 0 0"/>
+    <child link="body00_link"/>
+  </joint>
+
+  <link name="body00_link">
+    <visual>
+      <geometry>
+        <box size="0.05 0.05 0.09"/>
+      </geometry>
+      <origin xyz="0 0 0.02" rpy="0 0 0"/>
+      <material name="link_material0"/>
+    </visual>
+  </link>
+
+  <joint name="body00_joint" type="revolute">
+    <parent link="body00_link"/>
+    <child link="body01_link"/>
+    <origin xyz="0 0 0.04" rpy="0 0 0"/>
+    <axis xyz="0 0 1"/>
+    <limit lower="-3.14159" upper="3.14159" effort="0" velocity="0"/>
+  </joint>
+
+  <link name="body01_link">
+    <visual>
+      <geometry>
+        <box size="0.05 0.05 0.116"/>
+      </geometry>
+      <origin xyz="0 0 0.033" rpy="0 0 0"/>
+      <material name="link_material0"/>
+    </visual>
+  </link>
+
+  <joint name="body01_joint" type="revolute">
+    <parent link="body01_link"/>
+    <child link="body02_link"/>
+    <origin xyz="0 0 0.066" rpy="0 0 0"/>
+    <axis xyz="-1 0 0"/>
+    <limit lower="-3.14159" upper="3.14159" effort="0" velocity="0"/>
+  </joint>
+
+  <link name="body02_link">
+    <visual>
+      <geometry>
+        <box size="0.19 0.05 0.478"/>
+      </geometry>
+      <origin xyz="-0.07 0 0.214" rpy="0 0 0"/>
+      <material name="link_material0"/>
+    </visual>
+  </link>
+
+  <joint name="body02_joint" type="revolute">
+    <parent link="body02_link"/>
+    <child link="body03_link"/>
+    <origin xyz="-0.14 0 0.428" rpy="0 0 0"/>
+    <axis xyz="-1 0 0"/>
+    <limit lower="-3.14159" upper="3.14159" effort="0" velocity="0"/>
+  </joint>
+
+  <link name="body03_link">
+    <visual>
+      <geometry>
+        <box size="0.185 0.05 0.35"/>
+      </geometry>
+      <origin xyz="0.0675 0 0.15" rpy="0 0 0"/>
+      <material name="link_material0"/>
+    </visual>
+  </link>
+
+  <material name="link_material1">
+    <color rgba="0 1 0 0.5"/>
+  </material>
+
+  <joint name="base1_joint" type="fixed">
+    <parent link="body03_link"/>
+    <origin xyz="0.135 0 0.3" rpy="0 0 0"/>
+    <child link="body10_link"/>
+  </joint>
+
+  <link name="body10_link">
+    <visual>
+      <geometry>
+        <box size="0.35 0.05 0.05"/>
+      </geometry>
+      <origin xyz="-0.15 0 0" rpy="0 0 0"/>
+      <material name="link_material1"/>
+    </visual>
+  </link>
+
+  <joint name="body10_joint" type="revolute">
+    <parent link="body10_link"/>
+    <child link="body11_link"/>
+    <origin xyz="-0.3 0 0" rpy="0 0 0"/>
+    <axis xyz="0 0 1"/>
+    <limit lower="-3.14159" upper="3.14159" effort="0" velocity="0"/>
+  </joint>
+
+  <link name="body11_link">
+    <visual>
+      <geometry>
+        <box size="0.05 0.05 0.156"/>
+      </geometry>
+      <origin xyz="0 0 0.053" rpy="0 0 0"/>
+      <material name="link_material1"/>
+    </visual>
+  </link>
+
+  <joint name="body11_joint" type="revolute">
+    <parent link="body11_link"/>
+    <child link="body12_link"/>
+    <origin xyz="0 0 0.106" rpy="0 0 0"/>
+    <axis xyz="-1 0 0"/>
+    <limit lower="-3.14159" upper="3.14159" effort="0" velocity="0"/>
+  </joint>
+
+  <link name="body12_link">
+    <visual>
+      <geometry>
+        <box size="0.19 0.05 0.478"/>
+      </geometry>
+      <origin xyz="-0.07 0 0.214" rpy="0 0 0"/>
+      <material name="link_material1"/>
+    </visual>
+  </link>
+
+  <joint name="body12_joint" type="revolute">
+    <parent link="body12_link"/>
+    <child link="body13_link"/>
+    <origin xyz="-0.14 0 0.428" rpy="0 0 0"/>
+    <axis xyz="-1 0 0"/>
+    <limit lower="-3.14159" upper="3.14159" effort="0" velocity="0"/>
+  </joint>
+
+  <link name="body13_link">
+    <visual>
+      <geometry>
+        <box size="0.185 0.05 0.35"/>
+      </geometry>
+      <origin xyz="0.0675 0 0.15" rpy="0 0 0"/>
+      <material name="link_material1"/>
+    </visual>
+  </link>
+
+  <joint name="body13_joint" type="revolute">
+    <parent link="body13_link"/>
+    <child link="body14_link"/>
+    <origin xyz="0.135 0 0.3" rpy="0 0 0"/>
+    <axis xyz="0 0 1"/>
+    <limit lower="-3.14159" upper="3.14159" effort="0" velocity="0"/>
+  </joint>
+
+  <link name="body14_link">
+    <visual>
+      <geometry>
+        <box size="0.05 0.05 0.178"/>
+      </geometry>
+      <origin xyz="0 0 0.064" rpy="0 0 0"/>
+      <material name="link_material1"/>
+    </visual>
+  </link>
+
+  <joint name="body14_joint" type="revolute">
+    <parent link="body14_link"/>
+    <child link="body15_link"/>
+    <origin xyz="0 0 0.128" rpy="0 0 0"/>
+    <axis xyz="-1 0 0"/>
+    <limit lower="-3.14159" upper="3.14159" effort="0" velocity="0"/>
+  </joint>
+
+  <link name="body15_link">
+    <visual>
+      <geometry>
+        <box size="0.161 0.05 0.05"/>
+      </geometry>
+      <origin xyz="-0.0555 0 0" rpy="0 0 0"/>
+      <material name="link_material1"/>
+    </visual>
+  </link>
+
+  <joint name="body15_joint" type="revolute">
+    <parent link="body15_link"/>
+    <child link="body16_link"/>
+    <origin xyz="-0.111 0 0" rpy="0 0 0"/>
+    <axis xyz="0 0 1"/>
+    <limit lower="-6.28319" upper="6.28319" effort="0" velocity="0"/>
+  </joint>
+
+  <link name="body16_link">
+    <visual>
+      <geometry>
+        <box size="0.05 0.05 0.156"/>
+      </geometry>
+      <origin xyz="0 0 0.053" rpy="0 0 0"/>
+      <material name="link_material1"/>
+    </visual>
+  </link>
+
+  <material name="link_material2">
+    <color rgba="1 1 0 0.5"/>
+  </material>
+
+  <joint name="base2_joint" type="fixed">
+    <parent link="body03_link"/>
+    <origin xyz="0.135 0 0.3" rpy="0 0 0"/>
+    <child link="body20_link"/>
+  </joint>
+
+  <link name="body20_link">
+    <visual>
+      <geometry>
+        <box size="0.05 0.05 0.35"/>
+      </geometry>
+      <origin xyz="0 0 0.15" rpy="0 0 0"/>
+      <material name="link_material2"/>
+    </visual>
+  </link>
+
+  <joint name="body20_joint" type="revolute">
+    <parent link="body20_link"/>
+    <child link="body21_link"/>
+    <origin xyz="0 0 0.3" rpy="0 0 0"/>
+    <axis xyz="0 0 1"/>
+    <limit lower="-3.14159" upper="3.14159" effort="0" velocity="0"/>
+  </joint>
+
+  <link name="body21_link">
+    <visual>
+      <geometry>
+        <box size="0.05 0.05 0.156"/>
+      </geometry>
+      <origin xyz="0 0 0.053" rpy="0 0 0"/>
+      <material name="link_material2"/>
+    </visual>
+  </link>
+
+  <joint name="body21_joint" type="revolute">
+    <parent link="body21_link"/>
+    <child link="body22_link"/>
+    <origin xyz="0 0 0.106" rpy="0 0 0"/>
+    <axis xyz="-1 0 0"/>
+    <limit lower="-3.14159" upper="3.14159" effort="0" velocity="0"/>
+  </joint>
+
+  <link name="body22_link">
+    <visual>
+      <geometry>
+        <box size="0.19 0.05 0.478"/>
+      </geometry>
+      <origin xyz="-0.07 0 0.214" rpy="0 0 0"/>
+      <material name="link_material2"/>
+    </visual>
+  </link>
+
+  <joint name="body22_joint" type="revolute">
+    <parent link="body22_link"/>
+    <child link="body23_link"/>
+    <origin xyz="-0.14 0 0.428" rpy="0 0 0"/>
+    <axis xyz="-1 0 0"/>
+    <limit lower="-3.14159" upper="3.14159" effort="0" velocity="0"/>
+  </joint>
+
+  <link name="body23_link">
+    <visual>
+      <geometry>
+        <box size="0.185 0.05 0.35"/>
+      </geometry>
+      <origin xyz="0.0675 0 0.15" rpy="0 0 0"/>
+      <material name="link_material2"/>
+    </visual>
+  </link>
+
+  <joint name="body23_joint" type="revolute">
+    <parent link="body23_link"/>
+    <child link="body24_link"/>
+    <origin xyz="0.135 0 0.3" rpy="0 0 0"/>
+    <axis xyz="0 0 1"/>
+    <limit lower="-3.14159" upper="3.14159" effort="0" velocity="0"/>
+  </joint>
+
+  <link name="body24_link">
+    <visual>
+      <geometry>
+        <box size="0.05 0.05 0.178"/>
+      </geometry>
+      <origin xyz="0 0 0.064" rpy="0 0 0"/>
+      <material name="link_material2"/>
+    </visual>
+  </link>
+
+  <joint name="body24_joint" type="revolute">
+    <parent link="body24_link"/>
+    <child link="body25_link"/>
+    <origin xyz="0 0 0.128" rpy="0 0 0"/>
+    <axis xyz="-1 0 0"/>
+    <limit lower="-3.14159" upper="3.14159" effort="0" velocity="0"/>
+  </joint>
+
+  <link name="body25_link">
+    <visual>
+      <geometry>
+        <box size="0.161 0.05 0.05"/>
+      </geometry>
+      <origin xyz="-0.0555 0 0" rpy="0 0 0"/>
+      <material name="link_material2"/>
+    </visual>
+  </link>
+
+  <joint name="body25_joint" type="revolute">
+    <parent link="body25_link"/>
+    <child link="body26_link"/>
+    <origin xyz="-0.111 0 0" rpy="0 0 0"/>
+    <axis xyz="0 0 1"/>
+    <limit lower="-6.28319" upper="6.28319" effort="0" velocity="0"/>
+  </joint>
+
+  <link name="body26_link">
+    <visual>
+      <geometry>
+        <box size="0.05 0.05 0.156"/>
+      </geometry>
+      <origin xyz="0 0 0.053" rpy="0 0 0"/>
+      <material name="link_material2"/>
+    </visual>
+  </link>
+
+  <material name="link_material3">
+    <color rgba="0 0 1 0.5"/>
+  </material>
+
+  <joint name="base3_joint" type="fixed">
+    <parent link="body03_link"/>
+    <origin xyz="0.135 0 0.3" rpy="0 0 0"/>
+    <child link="body30_link"/>
+  </joint>
+
+  <link name="body30_link">
+    <visual>
+      <geometry>
+        <box size="0.35 0.05 0.05"/>
+      </geometry>
+      <origin xyz="0.15 0 0" rpy="0 0 0"/>
+      <material name="link_material3"/>
+    </visual>
+  </link>
+
+  <joint name="body30_joint" type="revolute">
+    <parent link="body30_link"/>
+    <child link="body31_link"/>
+    <origin xyz="0.3 0 0" rpy="0 0 0"/>
+    <axis xyz="0 0 1"/>
+    <limit lower="-3.14159" upper="3.14159" effort="0" velocity="0"/>
+  </joint>
+
+  <link name="body31_link">
+    <visual>
+      <geometry>
+        <box size="0.05 0.05 0.156"/>
+      </geometry>
+      <origin xyz="0 0 0.053" rpy="0 0 0"/>
+      <material name="link_material3"/>
+    </visual>
+  </link>
+
+  <joint name="body31_joint" type="revolute">
+    <parent link="body31_link"/>
+    <child link="body32_link"/>
+    <origin xyz="0 0 0.106" rpy="0 0 0"/>
+    <axis xyz="-1 0 0"/>
+    <limit lower="-3.14159" upper="3.14159" effort="0" velocity="0"/>
+  </joint>
+
+  <link name="body32_link">
+    <visual>
+      <geometry>
+        <box size="0.19 0.05 0.478"/>
+      </geometry>
+      <origin xyz="-0.07 0 0.214" rpy="0 0 0"/>
+      <material name="link_material3"/>
+    </visual>
+  </link>
+
+  <joint name="body32_joint" type="revolute">
+    <parent link="body32_link"/>
+    <child link="body33_link"/>
+    <origin xyz="-0.14 0 0.428" rpy="0 0 0"/>
+    <axis xyz="-1 0 0"/>
+    <limit lower="-3.14159" upper="3.14159" effort="0" velocity="0"/>
+  </joint>
+
+  <link name="body33_link">
+    <visual>
+      <geometry>
+        <box size="0.185 0.05 0.35"/>
+      </geometry>
+      <origin xyz="0.0675 0 0.15" rpy="0 0 0"/>
+      <material name="link_material3"/>
+    </visual>
+  </link>
+
+  <joint name="body33_joint" type="revolute">
+    <parent link="body33_link"/>
+    <child link="body34_link"/>
+    <origin xyz="0.135 0 0.3" rpy="0 0 0"/>
+    <axis xyz="0 0 1"/>
+    <limit lower="-3.14159" upper="3.14159" effort="0" velocity="0"/>
+  </joint>
+
+  <link name="body34_link">
+    <visual>
+      <geometry>
+        <box size="0.05 0.05 0.178"/>
+      </geometry>
+      <origin xyz="0 0 0.064" rpy="0 0 0"/>
+      <material name="link_material3"/>
+    </visual>
+  </link>
+
+  <joint name="body34_joint" type="revolute">
+    <parent link="body34_link"/>
+    <child link="body35_link"/>
+    <origin xyz="0 0 0.128" rpy="0 0 0"/>
+    <axis xyz="-1 0 0"/>
+    <limit lower="-3.14159" upper="3.14159" effort="0" velocity="0"/>
+  </joint>
+
+  <link name="body35_link">
+    <visual>
+      <geometry>
+        <box size="0.161 0.05 0.05"/>
+      </geometry>
+      <origin xyz="-0.0555 0 0" rpy="0 0 0"/>
+      <material name="link_material3"/>
+    </visual>
+  </link>
+
+  <joint name="body35_joint" type="revolute">
+    <parent link="body35_link"/>
+    <child link="body36_link"/>
+    <origin xyz="-0.111 0 0" rpy="0 0 0"/>
+    <axis xyz="0 0 1"/>
+    <limit lower="-6.28319" upper="6.28319" effort="0" velocity="0"/>
+  </joint>
+
+  <link name="body36_link">
+    <visual>
+      <geometry>
+        <box size="0.05 0.05 0.156"/>
+      </geometry>
+      <origin xyz="0 0 0.053" rpy="0 0 0"/>
+      <material name="link_material3"/>
+    </visual>
+  </link>
+
+</robot>
